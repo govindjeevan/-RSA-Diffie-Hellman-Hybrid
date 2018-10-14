@@ -1,8 +1,10 @@
-# NTC ASSIGNMENT 2
+# NTC Mini Project
+
+## RSA-DIFFIE HELMAN HYBRID
 
 ### Contributors:
-Govind Jeevan	16CO221
-Palak Singhal	16CO129 <br/>
+Govind Jeevan	16CO221<br/>
+Palak Singhal	16CO129 
 
 ### Advantages Of RSA Algorithm
 - It uses Public Key encryption which means that
