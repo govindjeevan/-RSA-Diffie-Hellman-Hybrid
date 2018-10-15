@@ -89,6 +89,12 @@ def generatekey(p,q):
 
 	return (e, d)
 
+
+def crypter(key,string):
+	string=[c^key for c in asciiString]
+
+	return string
+
 if __name__ == '__main__':
 	
 	p,q = generateprime()
@@ -104,13 +110,15 @@ if __name__ == '__main__':
 	Y= (g**B)%r
 	print("Alice sends", X, "Bob sends", Y)
 
-	K1= (Y**A)%r
-	K2= (X**B)%r
-
+	K1= pow(Y,A,r)
+	K1= pow(X,B,r)
+	print(K1)
+	print(K2)
 	message = input("enter message to be encrypted")
-	message= int(message)
-	encrypted_message = (message ^ K1)
+	asciiString=[ord(c) for c in message]
+	encrypted_message = crypter(K1,asciiString)
 	print("encrypted message is :", encrypted_message)
 	print("decrytping message")
-	decrypted_message= (encrypted_message ^ K2)
-	print ("decrypted message", decrypted_message)
+	decrypted_message= crypter(K2,encrypted_message)
+	print ("decrypted message is :", decrypted_message)
+	
