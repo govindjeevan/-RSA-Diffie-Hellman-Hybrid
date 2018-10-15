@@ -120,4 +120,6 @@ def hybrid(message):
     print("Cipher Text " , ciphertext)
     messagetext = xor(ciphertext, Key2)
     print("Message Text " ,messagetext)
-    return messagetext
+    values= {"A": A, "B": B, "shared prime": r, "shared base": g, "X": X, "Y":Y, "Key1": K1, "Key2":K2, "ciphertext": ciphertext, "messagetext": messagetext }
+    print(values)
+    return values

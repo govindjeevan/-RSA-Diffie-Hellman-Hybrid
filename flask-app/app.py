@@ -13,7 +13,8 @@ def my_form():
 @app.route('/', methods=['POST'])
 def my_form_post():
     text = request.form['text']
-    return Hybrid.hybrid(text)
+    value= Hybrid.hybrid(text)
+    return value['messagetext']
 
 if __name__ == '__main__':
     app.run()
