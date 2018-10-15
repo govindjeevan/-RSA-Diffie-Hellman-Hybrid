@@ -1,6 +1,8 @@
 #conributors:
 #Palak Singhal 16co129
 import random 
+import hashlib
+
 # function to find extended gcd
 def egcd(a, b):
 	if a == 0:
@@ -89,10 +91,12 @@ def generatekey(p,q):
 
 	return (e, d)
 
+def xor(s1, s2):
+ return "".join([chr(ord(c1) ^ ord(c2)) for (c1,c2) in zip(s1,s2)])
+
 
 def crypter(key,string):
 	string=[c^key for c in asciiString]
-
 	return string
 
 if __name__ == '__main__':
@@ -111,14 +115,18 @@ if __name__ == '__main__':
 	print("Alice sends", X, "Bob sends", Y)
 
 	K1= pow(Y,A,r)
-	K1= pow(X,B,r)
-	print(K1)
-	print(K2)
+	K2= pow(X,B,r)
+	Key1=hashlib.sha256(str(K1).encode('utf-8')).hexdigest()
+	Key2=hashlib.sha256(str(K2).encode('utf-8')).hexdigest()
+
+	print(Key1)
+	print(Key2)
+	print(type(Key1))
 	message = input("enter message to be encrypted")
-	asciiString=[ord(c) for c in message]
-	encrypted_message = crypter(K1,asciiString)
-	print("encrypted message is :", encrypted_message)
-	print("decrytping message")
-	decrypted_message= crypter(K2,encrypted_message)
-	print ("decrypted message is :", decrypted_message)
+	print(type(message))
+
+	ciphertext = xor(message, Key1) 
+	print(ciphertext)
+	messagetext = xor(ciphertext, Key2) 
 	
+	print(messagetext)
