@@ -119,14 +119,11 @@ if __name__ == '__main__':
 	Key1=hashlib.sha256(str(K1).encode('utf-8')).hexdigest()
 	Key2=hashlib.sha256(str(K2).encode('utf-8')).hexdigest()
 
-	print(Key1)
-	print(Key2)
-	print(type(Key1))
+	print("Key I: ", Key1)
+	print("Key II: ", Key2)
 	message = input("enter message to be encrypted")
-	print(type(message))
 
 	ciphertext = xor(message, Key1) 
-	print(ciphertext)
+	print("Cipher Text " , ciphertext)
 	messagetext = xor(ciphertext, Key2) 
-	
-	print(messagetext)
+	print("Message Text " ,messagetext)
