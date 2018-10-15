@@ -1,15 +1,19 @@
+from flask import Flask
+from flask import request
 import Hybrid
-from flask import Flask, request
-from flask_restful import Resource, Api
-
+from flask import render_template
 app = Flask(__name__)
-api = Api(app)
 
-class Crypto(Resource):
-    def get(self, message):
-        return {'decrypt': Hybrid.hybrid(message)}
 
-api.add_resource(Crypto, '/crypto/<message>')
+@app.route('/')
+def my_form():
+    return render_template("my_form.html")
+
+
+@app.route('/', methods=['POST'])
+def my_form_post():
+    text = request.form['text']
+    return Hybrid.hybrid(text)
 
 if __name__ == '__main__':
-     app.run()
+    app.run()
