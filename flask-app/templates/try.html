@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Output</h1>
+
+<button onclick="typeWriter()">Click me</button>
+
+<p id="demo"></p>
+
+<script>
+	dataJSON={{ data|tojson|safe }};
+        console.log({{ data|tojson|safe }});
+var i = 0;
+var txt = 'Alices secret number ';
+var speed = 50;
+
+function typeWriter() {
+  if (i < txt.length) {
+    document.getElementById("demo").innerHTML += txt.charAt(i);
+    i++;
+    setTimeout(typeWriter, speed);0
+  }
+}
+</script>
+
+</body>
+</html>
