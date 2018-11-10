@@ -1,6 +1,7 @@
 #conributors:
 #Palak Singhal 16co129
 import random 
+import hashlib
 # function to find extended gcd
 def egcd(a, b):
 	if a == 0:
@@ -103,17 +104,24 @@ def decrypt(m,p):
 	key, n = p
 	return (m**key)%n
 
+def xor(s1, s2):
+ return "".join([chr(ord(c1) ^ ord(c2)) for (c1,c2) in zip(s1,s2)])
+
 if __name__ == '__main__':
 	
 	p,q = generateprime()
 	print(p,q)
 	public, private = generatekey(p,q)
-	print("public key:", public, "private key:", private)
+	
 
+	Key1=hashlib.sha256(str(public).encode('utf-8')).hexdigest()
+	Key2=hashlib.sha256(str(private).encode('utf-8')).hexdigest()
+
+	print("public key:", Key1, "private key:", Key2)
 	message = input("enter message to be encrypted")
-	message= int(message)
-	encrypted_message = encrypt(message, private)
-	print("encrypted message is :", encrypted_message)
+	ciphertext = xor(message, Key1) 
+	
+	print("encrypted message is :", ciphertext)
 	print("decrytping message")
-	decrypted_message= decrypt(encrypted_message, public)
-	print ("decrypted message", decrypted_message)
+	messagetext = xor(ciphertext, Key2)
+	print ("decrypted message", messagetext)

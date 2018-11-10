@@ -1,9 +1,11 @@
 import random 
+import time
+import matplotlib.pyplot as plt 
 
-def generateprime():
+def generateprime(a,b):
 	count=0
 	while count<1:
-		p= random.randint(50,500)
+		p= random.randint(a,b)
 		if is_probable_prime(p):
 			count+=1
 	return p
@@ -48,20 +50,30 @@ def is_probable_prime(n):
 
 if __name__ == '__main__':
 	
-	p= generateprime()
-	b= random.randint(50,500)
-
-	A= random.randint(50,500)
-	B= random.randint(50,500)
-
-	print("shared prime ",p, "shared base ",b)
-	
-	X= (b**A)%p
-	Y= (b**B)%p
-
-	print("Alice sends", X, "Bob sends", Y)
-
-	m= (Y**A)%p
-	n= (X**B)%p
-
-	print("alice shared secret:  ", m, "      Bob shared secret:   ", n)
+    lis = []
+    x= []
+    n1=1
+    while n1<15:
+        start_time = time.time()
+        p= generateprime(2**n1,2**(n1+1))
+        b= random.randint(500,5000)
+        A= random.randint(500,5000)
+        B= random.randint(500,5000)
+        print("shared prime ",p, "shared base ",b)
+        X= (b**A)%p
+        Y= (b**B)%p
+        print("Alice sends", X, "Bob sends", Y)
+        m= (Y**A)%p
+        n= (X**B)%p
+        print("alice shared secret:  ", m, "      Bob shared secret:   ", n)
+        print("--- %s seconds ---" % (time.time() - start_time))
+        print ("n: ", n1)
+        x.append(n1)
+        lis.append(time.time()- start_time)
+        n1= n1+1
+    plt.plot(x, lis)
+    plt.xlabel('Number of bits ')
+    plt.ylabel('Time taken')
+    plt.title('Bits in prime number vs time taken') 
+    plt.show() 
+    plt.savefig('dh-graph')
